@@ -110,108 +110,84 @@ Base sugerida : https://www.kaggle.com/datasets/ivansher/nasa-nearest-earth-obje
 .  
 Vamos trabalhar com a tabela de produtos, já que a que escolhi inicialmente (pensei que poderia escolher qq dataframe fora das sugestoes) nao oferece uma analise comercial muito rica.  
 .  
-Para este cenário, vamos utilizar a modelagem Dimensional de Kimball, pois ela é amplamente usada para Data Warehousing devido à sua simplicidade e eficiência para consultas analíticas. A modelagem dimensional é baseada na criação de tabelas fato e tabelas dimensão.
-Cenário dos Dados e do Cliente
-Dados: Temos um dataset de produtos com títulos e descrições.
-Cliente: Provavelmente uma empresa que deseja analisar produtos, identificar tendências, e entender melhor as características dos produtos mais vendidos.
-Tabelas Fato e Dimensão
-Tabela Fato: Contém os eventos ou transações, como vendas de produtos.
-Tabelas Dimensão: Contêm os atributos descritivos dos fatos, como informações sobre os produtos.
-Estrutura das Tabelas
-Tabela Fato: Fato_Vendas
-ID_Venda: Chave primária.
-Data_Venda: Data da venda.
-ID_Produto: Chave estrangeira referenciando a tabela Dim_Produto.
-Quantidade_Vendida: Quantidade de produtos vendidos.
-Valor_Venda: Valor total da venda.
-Tabela Dimensão: Dim_Produto
-ID_Produto: Chave primária.
-Titulo_Produto: Título do produto.
-Descricao_Produto: Descrição do produto.
-Categoria_Produto: Categoria do produto (extraída das descrições ou fornecida externamente).
-Marca_Produto: Marca do produto (extraída das descrições ou fornecida externamente).
-Tabela Dimensão: Dim_Data
-ID_Data: Chave primária.
-Data: Data completa.
-Ano: Ano.
-Mes: Mês.
-Dia: Dia.
-Justificativa para a Modelagem Dimensional (Kimball)
-A modelagem dimensional é escolhida por sua facilidade de uso e otimização para consultas analíticas. As tabelas fato centralizam os eventos principais (vendas), enquanto as tabelas dimensão fornecem contexto descritivo (informações sobre produtos e datas). Isso facilita a criação de relatórios e análises, permitindo uma visualização clara dos dados.
-Visões Finais dos Dados
-Visão 1: Análise de Vendas por Produto
-Objetivo: Identificar quais produtos estão vendendo mais, em quais períodos, e entender as tendências de vendas.
-Colunas:
-Data_Venda
-Titulo_Produto
-Quantidade_Vendida
-Valor_Venda
-Categoria_Produto
-Marca_Produto
-Visão 2: Desempenho de Vendas por Categoria e Marca
-Objetivo: Analisar o desempenho de vendas por categoria de produto e por marca, ajudando a identificar quais categorias e marcas são mais lucrativas.
-Colunas:
-Data_Venda
-Categoria_Produto
-Marca_Produto
-Quantidade_Vendida
-Valor_Venda
-Diagrama Representando as Camadas Finais do Data Warehouse Proposto
-Diagrama
-plaintext
-Copy code
-+-------------------+          +------------------+          +-----------------+
-|   Dim_Produto     |          |     Fato_Vendas  |          |     Dim_Data    |
-+-------------------+          +------------------+          +-----------------+
-| ID_Produto (PK)   |---+   +--| ID_Venda (PK)    |          | ID_Data (PK)    |
-| Titulo_Produto    |   |   |  | Data_Venda       |<---------| Data            |
-| Descricao_Produto |   |   |  | ID_Produto (FK)  |          | Ano             |
-| Categoria_Produto |   +---|->| Quantidade_Vendida|         | Mes             |
-| Marca_Produto     |       |  | Valor_Venda      |          | Dia             |
-+-------------------+       |  +------------------+          +-----------------+
-                            |
-                            +-> Chaves Estrangeiras
-Implementação do Data Warehouse (Exemplo Simplificado em SQL)
-sql
-Copy code
--- Criação das tabelas dimensão
-CREATE TABLE Dim_Produto (
-    ID_Produto INT PRIMARY KEY,
-    Titulo_Produto VARCHAR(255),
-    Descricao_Produto TEXT,
-    Categoria_Produto VARCHAR(255),
-    Marca_Produto VARCHAR(255)
-);
-
-CREATE TABLE Dim_Data (
-    ID_Data INT PRIMARY KEY,
-    Data DATE,
-    Ano INT,
-    Mes INT,
-    Dia INT
-);
-
--- Criação da tabela fato
-CREATE TABLE Fato_Vendas (
-    ID_Venda INT PRIMARY KEY,
-    Data_Venda DATE,
-    ID_Produto INT,
-    Quantidade_Vendida INT,
-    Valor_Venda DECIMAL(10, 2),
-    FOREIGN KEY (ID_Produto) REFERENCES Dim_Produto(ID_Produto),
-    FOREIGN KEY (Data_Venda) REFERENCES Dim_Data(Data)
-);
-
--- Exemplo de inserção de dados
-INSERT INTO Dim_Produto (ID_Produto, Titulo_Produto, Descricao_Produto, Categoria_Produto, Marca_Produto)
-VALUES (1, 'Smartphone XYZ', 'A high-end smartphone with 128GB storage and a powerful camera.', 'Electronics', 'XYZ Brand');
-
-INSERT INTO Dim_Data (ID_Data, Data, Ano, Mes, Dia)
-VALUES (1, '2024-07-24', 2024, 7, 24);
-
-INSERT INTO Fato_Vendas (ID_Venda, Data_Venda, ID_Produto, Quantidade_Vendida, Valor_Venda)
-VALUES (1, '2024-07-24', 1, 10, 9999.90);
-Conclusão
+Para este cenário, vamos utilizar a modelagem Dimensional de Kimball, pois ela é amplamente usada para Data Warehousing devido à sua simplicidade e eficiência para consultas analíticas. A modelagem dimensional é baseada na criação de tabelas fato e tabelas dimensão.  
+.  
+Cenário dos Dados e do Cliente  
+.  
+Dados: Temos um dataset de produtos com títulos e descrições.  
+Cliente: Provavelmente uma empresa que deseja analisar produtos, identificar tendências, e entender melhor as características dos produtos mais vendidos.  
+.  
+Tabelas Fato e Dimensão  
+.  
+Tabela Fato: Contém os eventos ou transações, como vendas de produtos.  
+Tabelas Dimensão: Contêm os atributos descritivos dos fatos, como informações sobre os produtos.  
+.  
+Estrutura das Tabelas  
+.  
+Tabela Fato: Fato_Vendas  
+ID_Venda: Chave primária.  
+Data_Venda: Data da venda.  
+ID_Produto: Chave estrangeira referenciando a tabela Dim_Produto.  
+Quantidade_Vendida: Quantidade de produtos vendidos.  
+Valor_Venda: Valor total da venda.  
+.  
+Tabela Dimensão: Dim_Produto  
+ID_Produto: Chave primária.  
+Titulo_Produto: Título do produto.  
+Descricao_Produto: Descrição do produto.  
+Categoria_Produto: Categoria do produto (extraída das descrições ou fornecida externamente).  
+Marca_Produto: Marca do produto (extraída das descrições ou fornecida externamente).  
+.  
+Tabela Dimensão: Dim_Data  
+ID_Data: Chave primária.  
+Data: Data completa.  
+Ano: Ano.  
+Mes: Mês.  
+Dia: Dia.  
+.  
+Justificativa para a Modelagem Dimensional (Kimball)  
+.  
+A modelagem dimensional é escolhida por sua facilidade de uso e otimização para consultas analíticas. As tabelas fato centralizam os eventos principais (vendas), enquanto as tabelas dimensão fornecem contexto descritivo (informações sobre produtos e datas). Isso facilita a criação de relatórios e análises, permitindo uma visualização clara dos dados.  
+.  
+Visões Finais dos Dados  
+.  
+Visão 1: Análise de Vendas por Produto  
+Objetivo: Identificar quais produtos estão vendendo mais, em quais períodos, e entender as tendências de vendas.  
+Colunas:  
+Data_Venda  
+Titulo_Produto  
+Quantidade_Vendida  
+Valor_Venda  
+Categoria_Produto  
+Marca_Produto  
+.  
+Visão 2: Desempenho de Vendas por Categoria e Marca  
+Objetivo: Analisar o desempenho de vendas por categoria de produto e por marca, ajudando a identificar quais categorias e marcas são mais lucrativas.  
+Colunas:  
+Data_Venda  
+Categoria_Produto  
+Marca_Produto  
+Quantidade_Vendida  
+Valor_Venda  
+.  
+Diagrama Representando as Camadas Finais do Data Warehouse Proposto  
+.  
+.  
++-------------------+          +------------------+          +-----------------+  
+|   Dim_Produto     |          |     Fato_Vendas  |          |     Dim_Data    |  
++-------------------+          +------------------+          +-----------------+  
+| ID_Produto (PK)   |---+   +--| ID_Venda (PK)    |          | ID_Data (PK)    |  
+| Titulo_Produto    |   |   |  | Data_Venda       |<---------| Data            |  
+| Descricao_Produto |   |   |  | ID_Produto (FK)  |          | Ano             |  
+| Categoria_Produto |   +---|->| Quantidade_Vendida|         | Mes             |  
+| Marca_Produto     |       |  | Valor_Venda      |          | Dia             |  
++-------------------+       |  +------------------+          +-----------------+  
+                            |  
+                            +-> Chaves Estrangeiras  
+.  
+.  
+Conclusão  
+.  
 A modelagem dimensional de Kimball é adequada para o cenário descrito, pois facilita a análise de dados desestruturados, transformando-os em features úteis para a tomada de decisões. A estrutura proposta com tabelas fato e dimensão permite consultas eficientes e relatórios detalhados sobre o desempenho de vendas por produto, categoria e marca.
 .  
 ## 7 - Sobre Análise de Dados - Analisar  
