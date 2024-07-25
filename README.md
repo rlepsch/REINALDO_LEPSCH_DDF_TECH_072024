@@ -124,21 +124,21 @@ Tabelas Dimensão: Contêm os atributos descritivos dos fatos, como informaçõe
 .  
 ### Estrutura das Tabelas  
 .  
-Tabela Fato: Fato_Vendas  
+#### Tabela Fato: Fato_Vendas  
 ID_Venda: Chave primária.  
 Data_Venda: Data da venda.  
 ID_Produto: Chave estrangeira referenciando a tabela Dim_Produto.  
 Quantidade_Vendida: Quantidade de produtos vendidos.  
 Valor_Venda: Valor total da venda.  
 .  
-Tabela Dimensão: Dim_Produto  
+#### Tabela Dimensão: Dim_Produto  
 ID_Produto: Chave primária.  
 Titulo_Produto: Título do produto.  
 Descricao_Produto: Descrição do produto.  
 Categoria_Produto: Categoria do produto (extraída das descrições ou fornecida externamente).  
 Marca_Produto: Marca do produto (extraída das descrições ou fornecida externamente).  
 .  
-Tabela Dimensão: Dim_Data  
+#### Tabela Dimensão: Dim_Data  
 ID_Data: Chave primária.  
 Data: Data completa.  
 Ano: Ano.  
@@ -151,8 +151,9 @@ A modelagem dimensional é escolhida por sua facilidade de uso e otimização pa
 .  
 ### Visões Finais dos Dados  
 .  
-Visão 1: Análise de Vendas por Produto  
-Objetivo: Identificar quais produtos estão vendendo mais, em quais períodos, e entender as tendências de vendas.  
+#### Visão 1: Análise de Vendas por Produto  
+Objetivo: Identificar quais produtos estão vendendo mais, em quais períodos, e entender as tendências de vendas. 
+  
 Colunas:  
 Data_Venda  
 Titulo_Produto  
@@ -160,27 +161,28 @@ Quantidade_Vendida
 Valor_Venda  
 Categoria_Produto  
 Marca_Produto  
-.  
-Visão 2: Desempenho de Vendas por Categoria e Marca  
+  
+#### Visão 2: Desempenho de Vendas por Categoria e Marca  
 Objetivo: Analisar o desempenho de vendas por categoria de produto e por marca, ajudando a identificar quais categorias e marcas são mais lucrativas.  
+  
 Colunas:  
 Data_Venda  
 Categoria_Produto  
 Marca_Produto  
 Quantidade_Vendida  
 Valor_Venda  
-.  
+  
 ### Diagrama Representando as Camadas Finais do Data Warehouse Proposto  
-.  
-.  
+  
+  
 <img width="595" alt="Screenshot 2024-07-25 at 18 54 30" src="https://github.com/user-attachments/assets/274afe25-5bb2-46a9-a1f1-7aedde48a85e">
 
   
   
-Conclusão  
-.  
+### Conclusão  
+  
 A modelagem dimensional de Kimball é adequada para o cenário descrito, pois facilita a análise de dados desestruturados, transformando-os em features úteis para a tomada de decisões. A estrutura proposta com tabelas fato e dimensão permite consultas eficientes e relatórios detalhados sobre o desempenho de vendas por produto, categoria e marca.
-.  
+  
 ## 7 - Sobre Análise de Dados - Analisar  
 .  
 .  
