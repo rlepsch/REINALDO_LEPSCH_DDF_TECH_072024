@@ -18,3 +18,19 @@ Base sugerida : https://www.kaggle.com/datasets/ivansher/nasa-nearest-earth-obje
 <img width="638" alt="Screenshot 2024-07-25 at 15 14 00" src="https://github.com/user-attachments/assets/610d6252-22d9-4f00-a397-cd6ce2e31688">  
 .  
 
+## 2.1 - Sobre a Dadosfera - Integrar  
+.  
+<img width="1385" alt="Screenshot 2024-07-25 at 15 25 08" src="https://github.com/user-attachments/assets/68af740a-4247-4491-ac44-6ff670a5869f">  
+.  
+## 3 - Sobre a Dadosfera - Explorar  
+.  
+<img width="1443" alt="Screenshot 2024-07-25 at 15 44 32" src="https://github.com/user-attachments/assets/3dd020d7-015d-44e4-8e78-b1f18011118c">  
+.  
+## 4 - Sobre Data Quality  
+.  
+<img width="811" alt="Screenshot 2024-07-25 at 15 51 55" src="https://github.com/user-attachments/assets/f82c7168-eb8c-44a1-ab5d-b32c0893b157">  
+.  
+(detalhe em Rel Qualidade Dados.ipynb)  
+.  
+
+
