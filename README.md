@@ -107,50 +107,50 @@ Base sugerida : https://www.kaggle.com/datasets/ivansher/nasa-nearest-earth-obje
 .  
 .  
 ## 6 - Sobre Modelagem de Dados  
-.  
+  
 Vamos trabalhar com a tabela de produtos, já que a que escolhi inicialmente (pensei que poderia escolher qq dataframe fora das sugestoes) nao oferece uma analise comercial muito rica.  
-.  
+  
 Para este cenário, vamos utilizar a modelagem Dimensional de Kimball, pois ela é amplamente usada para Data Warehousing devido à sua simplicidade e eficiência para consultas analíticas. A modelagem dimensional é baseada na criação de tabelas fato e tabelas dimensão.  
-.  
+  
 ### Cenário dos Dados e do Cliente  
-.  
+  
 Dados: Temos um dataset de produtos com títulos e descrições.  
 Cliente: Provavelmente uma empresa que deseja analisar produtos, identificar tendências, e entender melhor as características dos produtos mais vendidos.  
-.  
+  
 ### Tabelas Fato e Dimensão  
-.  
+  
 Tabela Fato: Contém os eventos ou transações, como vendas de produtos.  
 Tabelas Dimensão: Contêm os atributos descritivos dos fatos, como informações sobre os produtos.  
-.  
+  
 ### Estrutura das Tabelas  
-.  
+  
 #### Tabela Fato: Fato_Vendas  
 ID_Venda: Chave primária.  
 Data_Venda: Data da venda.  
 ID_Produto: Chave estrangeira referenciando a tabela Dim_Produto.  
 Quantidade_Vendida: Quantidade de produtos vendidos.  
 Valor_Venda: Valor total da venda.  
-.  
+  
 #### Tabela Dimensão: Dim_Produto  
 ID_Produto: Chave primária.  
 Titulo_Produto: Título do produto.  
 Descricao_Produto: Descrição do produto.  
 Categoria_Produto: Categoria do produto (extraída das descrições ou fornecida externamente).  
 Marca_Produto: Marca do produto (extraída das descrições ou fornecida externamente).  
-.  
+  
 #### Tabela Dimensão: Dim_Data  
 ID_Data: Chave primária.  
 Data: Data completa.  
 Ano: Ano.  
 Mes: Mês.  
 Dia: Dia.  
-.  
+  
 ### Justificativa para a Modelagem Dimensional (Kimball)  
-.  
+  
 A modelagem dimensional é escolhida por sua facilidade de uso e otimização para consultas analíticas. As tabelas fato centralizam os eventos principais (vendas), enquanto as tabelas dimensão fornecem contexto descritivo (informações sobre produtos e datas). Isso facilita a criação de relatórios e análises, permitindo uma visualização clara dos dados.  
-.  
+  
 ### Visões Finais dos Dados  
-.  
+  
 #### Visão 1: Análise de Vendas por Produto  
 Objetivo: Identificar quais produtos estão vendendo mais, em quais períodos, e entender as tendências de vendas. 
   
